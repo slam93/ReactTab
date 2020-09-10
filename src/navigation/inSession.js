@@ -9,7 +9,10 @@ import {
 import Home from '../container/inSessionPage/Home';
 import Setting from '../container/inSessionPage/Setting';
 import Message from '../container/inSessionPage/Message';
-
+import Details from '../container/inSessionPage/Details';
+import CreateAccount from '../container/outSessionPage/CreateAccount';
+import {createStackNavigator} from '@react-navigation/stack';
+const Context = React.createContext();
 const Tab = createBottomTabNavigator();
 
 const CustomBottomBar = (props) => {
@@ -19,6 +22,26 @@ const CustomBottomBar = (props) => {
     </View>
   );
 };
+const StackHome = createStackNavigator();
+
+function homeStack({navigation, route}) {
+  if (route.state !== undefined) {
+    if (route.state.index === 0) {
+      navigation.setOptions({tabBarVisible: true});
+    } else {
+      navigation.setOptions({tabBarVisible: false});
+    }
+  }
+
+  return (
+    <StackHome.Navigator
+      initialRouteName="Home"
+      screenOptions={{headerShown: false}}>
+      <StackHome.Screen name="Home" component={Home} />
+      <StackHome.Screen name="Details" component={Details} />
+    </StackHome.Navigator>
+  );
+}
 
 export default function App() {
   return (
@@ -37,11 +60,11 @@ export default function App() {
           },
         })}
         tabBarOptions={{
-          activeTintColor: '#61dafb',
-          inactiveTintColor: '#2D4980',
+          activeTintColor: '#E03378',
+          inactiveTintColor: '#61dafb',
           showLabel: false,
         }}>
-        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Home" component={homeStack} />
         <Tab.Screen name="Setting" component={Setting} />
         <Tab.Screen name="Message" component={Message} />
       </Tab.Navigator>

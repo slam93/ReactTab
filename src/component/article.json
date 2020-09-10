@@ -1,0 +1,56 @@
+[
+  {
+    "id":1,
+    "image": null,
+    "prix": 10,
+    "name": "Article 1",
+    "decription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
+    "categorie": "cat-exemple",
+    "like": [5]
+  },
+  {
+    "id":2,
+    "image": null,
+    "prix": 10,
+    "name": "Article 1",
+    "decription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
+    "categorie": "cat-exemple",
+    "like": [1,58]
+  },
+  {
+    "id":3,
+    "image": null,
+    "prix": 10,
+    "name": "Article 1",
+    "decription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
+    "categorie": "cat-exemple",
+    "like": [1]
+  },
+  {
+    "id":4,
+    "image": null,
+    "prix": 10,
+    "name": "Article 1",
+    "decription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
+    "categorie": "cat-exemple",
+    "like": []
+  },
+  {
+    "id":5,
+    "image": null,
+    "prix": 10,
+    "name": "Article 1",
+    "decription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
+    "categorie": "cat-exemple",
+    "like": []
+  },
+  {
+    "id":6,
+    "image": null,
+    "prix": 10,
+    "name": "Article 1",
+    "decription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
+    "categorie": "cat-exemple",
+    "like": []
+  }
+]

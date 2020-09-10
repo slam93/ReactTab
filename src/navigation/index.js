@@ -9,7 +9,8 @@ function AppContainer({session}) {
   return (
     <NavigationContainer>
       <SafeAreaProvider>
-        {session === null ? <OutSession /> : <InSession />}
+        {/*{session === null ? <OutSession /> : <InSession />}*/}
+        <InSession />
       </SafeAreaProvider>
     </NavigationContainer>
   );

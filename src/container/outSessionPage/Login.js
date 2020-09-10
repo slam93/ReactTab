@@ -14,6 +14,9 @@ import {Container, Content, Toast} from 'native-base';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import {setToken} from '../../redux/actions';
+import {connect} from 'react-redux';
+import styleContainer from '../../component/styleContainer';
 
 class Login extends Component {
   constructor(props) {
@@ -52,8 +55,7 @@ class Login extends Component {
       });
     } else {
       //API
-
-      this.props.navigation.navigate('Home');
+      this.props.setToken('12');
     }
   }
 
@@ -66,7 +68,7 @@ class Login extends Component {
             style={{
               height: windowHeight - windowHeight * 0.037,
             }}>
-            <View style={styles.overlay} />
+            <View style={styleContainer.overlay} />
             <View style={{flexDirection: 'column'}}>
               <View
                 style={{
@@ -164,13 +166,14 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  const {session} = state.stateStore;
+  return {session};
+};
+
+export default connect(mapStateToProps, {setToken})(Login);
 
 const styles = StyleSheet.create({
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(15, 15, 15,0.8)',
-  },
   icon: {position: 'absolute', zIndex: 10, top: 11, left: 20},
   textInput: {
     backgroundColor: '#FFF',
