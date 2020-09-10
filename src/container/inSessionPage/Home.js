@@ -48,7 +48,7 @@ class Home extends Component {
   }
 
   pressDetail(article) {
-    this.props.navigation.navigate('Details');
+    this.props.navigation.navigate('Details', {article: article});
   }
 
   render() {

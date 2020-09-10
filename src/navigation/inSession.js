@@ -15,13 +15,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 const Context = React.createContext();
 const Tab = createBottomTabNavigator();
 
-const CustomBottomBar = (props) => {
-  return (
-    <View>
-      <BottomTabBar {...props} style={{paddingBottom: 5, paddingTop: 5}} />
-    </View>
-  );
-};
 const StackHome = createStackNavigator();
 
 function homeStack({navigation, route}) {
@@ -47,7 +40,6 @@ export default function App() {
   return (
     <View style={{flex: 1, position: 'relative'}}>
       <Tab.Navigator
-        tabBar={(props) => <CustomBottomBar {...props} />}
         screenOptions={({route}) => ({
           tabBarIcon: ({focused, color, size}) => {
             if (route.name === 'Home') {
