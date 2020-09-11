@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  TouchableHighlight,
 } from 'react-native';
 import {Container, Content} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -149,7 +150,7 @@ class Home extends Component {
                       }}>
                       <TouchableOpacity
                         onPress={() => this.pressLike(article.id)}>
-                        <LikeComponent article={article} />
+                        <LikeComponent article={article} size={17} />
                       </TouchableOpacity>
                       <TouchableOpacity
                         onPress={() => this.pressLike(article.id)}>

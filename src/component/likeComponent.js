@@ -15,9 +15,9 @@ class LikeComponent extends Component {
         {this.props.article.like.find(
           (idLike) => idLike == this.state.idUser,
         ) == undefined ? (
-          <Icon name="heart-o" size={17} color={'grey'} />
+          <Icon name="heart-o" size={this.props.size} color={'grey'} />
         ) : (
-          <Icon name="heart" size={17} color={'#E03378'} />
+          <Icon name="heart" size={this.props.size} color={'#E03378'} />
         )}
       </View>
     );

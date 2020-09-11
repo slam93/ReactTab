@@ -4,9 +4,11 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  TouchableHighlight,
   Dimensions,
   ScrollView,
   Animated,
+  Modal,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Text, Header, Title} from 'native-base';
@@ -16,6 +18,7 @@ const HEADER_COLLAPSED_HEIGHT = 60;
 import {connect} from 'react-redux';
 import LikeComponent from '../../component/likeComponent';
 import {updateLike} from '../../redux/actions';
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 class Details extends Component {
   constructor(props) {
@@ -24,8 +27,13 @@ class Details extends Component {
       idUser: 5,
       scrollY: new Animated.Value(0),
       article: this.props.route.params.article,
+      modaleLibrarie: false,
+      librarie: [],
     };
     this.pressLike = this.pressLike.bind(this);
+    this.back = this.back.bind(this);
+    this.librarie = this.librarie.bind(this);
+    this.contactVendeur = this.contactVendeur.bind(this);
   }
 
   componentDidMount() {}
@@ -34,8 +42,6 @@ class Details extends Component {
     let articleIndex = this.props.dataArticle.findIndex(
       (article) => article.id === id,
     );
-
-    console.log(articleIndex);
 
     if (this.props.dataArticle[articleIndex] !== undefined) {
       let likes = this.props.dataArticle[articleIndex].like;
@@ -49,8 +55,26 @@ class Details extends Component {
     }
   }
 
-  render() {
+  back() {
+    //API GET ARTICLE + STORE
+    this.props.navigation.goBack();
+  }
 
+  librarie(article) {
+    let librarie = [];
+    for (let i = 0; i < article.librarie.length; i++) {
+      librarie.push({url: article.librarie[i], props: {}});
+    }
+
+    this.setState({
+      librarie: librarie,
+      modaleLibrarie: true,
+    });
+  }
+
+  contactVendeur() {}
+
+  render() {
     let articleIndex = this.props.dataArticle.findIndex(
       (article) => article.id === this.state.article.id,
     );
@@ -59,11 +83,9 @@ class Details extends Component {
 
     if (this.props.dataArticle[articleIndex] !== undefined) {
       article = this.props.dataArticle[articleIndex];
-    }else{
+    } else {
       article = this.state.article;
     }
-
-
 
     const headerHeight = this.state.scrollY.interpolate({
       inputRange: [0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
@@ -83,7 +105,7 @@ class Details extends Component {
     });
 
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, backgroundColor: '#FFF'}}>
         <Animated.View
           style={{
             height: headerHeight,
@@ -97,6 +119,7 @@ class Details extends Component {
           <Animated.View style={{opacity: headerTitleOpacity}}>
             <Header style={styles.header}>
               <TouchableOpacity
+                onPress={this.back}
                 style={{
                   zIndex: 100,
                   width: '20%',
@@ -129,6 +152,7 @@ class Details extends Component {
               opacity: heroTitleOpacity,
             }}>
             <TouchableOpacity
+              onPress={this.back}
               style={{
                 width: 60,
                 height: 50,
@@ -141,51 +165,12 @@ class Details extends Component {
               }}>
               <Icon style={{color: '#FFF'}} size={30} name="angle-left" />
             </TouchableOpacity>
-            <View>
+            <TouchableOpacity onPress={() => this.librarie(article)}>
               <Image
                 source={require('../../assets/images/shoes.jpg')}
                 style={styles.imgBackground}
               />
-            </View>
-
-            <View style={{paddingHorizontal: 10, paddingVertical: 10}}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <View style={{width: '60%'}}>
-                  <Text
-                    style={{
-                      color: '#333',
-                      fontWeight: 'bold',
-                    }}>
-                    {article.name}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    width: '40%',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'flex-end',
-                  }}>
-                  <TouchableOpacity
-                  style={{backgroundColor:"red"}}
-                    onPress={() => this.pressLike(article.id)}>
-                    <LikeComponent article={article} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                  style={{backgroundColor:"red"}}
-                    onPress={() => this.pressLike(article.id)}>
-                    <Text style={{color: '#333', fontSize: 13, marginLeft: 5}}>
-                      {article.like.length}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View>
-                <Text style={{color: '#333', fontSize: 13}}>
-                  {article.prix}€
-                </Text>
-              </View>
-            </View>
+            </TouchableOpacity>
           </Animated.View>
         </Animated.View>
         <ScrollView
@@ -203,64 +188,100 @@ class Details extends Component {
             {useNativeDriver: false},
           )}
           scrollEventThrottle={16}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{width: '60%'}}>
+              <Text
+                style={{
+                  color: '#333',
+                  fontWeight: 'bold',
+                }}>
+                {article.name}
+              </Text>
+            </View>
+            <View
+              style={{
+                width: '40%',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                paddingRight: 15,
+              }}>
+              <TouchableOpacity onPress={() => this.pressLike(article.id)}>
+                <LikeComponent article={article} size={20} />
+              </TouchableOpacity>
+              <View>
+                <Text style={{color: '#333', fontSize: 13, marginLeft: 5}}>
+                  {article.like.length}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View>
+            <Text style={{color: '#333', fontSize: 13}}>{article.prix}€</Text>
+          </View>
+          <View style={{paddingTop: 10}}>
+            <Text>{article.description}</Text>
+          </View>
+
+          <View style={{paddingHorizontal: 30, paddingVertical: 30}}>
             <TouchableOpacity
-                  style={{backgroundColor:"red"}}
-                    onPress={() => this.pressLike(article.id)}>
-                    <LikeComponent article={article} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                  style={{backgroundColor:"red"}}
-                    onPress={() => this.pressLike(article.id)}>
-                    <Text style={{color: '#333', fontSize: 13, marginLeft: 5}}>
-                      {article.like.length}
-                    </Text>
-                  </TouchableOpacity>
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-            viverra massa sollicitudin ante interdum euismod. Aliquam erat
-            volutpat. Nulla imperdiet interdum nunc quis posuere. Cras eros
-            ipsum, ultricies dignissim libero vitae, aliquam consequat enim.
-            Aliquam sodales consectetur lacus, eget ullamcorper mauris
-            condimentum vel. Aenean eget faucibus enim, eget elementum ligula.
-            Praesent blandit velit ex, quis tincidunt augue aliquam nec. Nam nec
-            cursus dolor. Nunc ac augue interdum magna volutpat ultrices non eu
-            risus. Suspendisse porttitor nunc augue, at placerat risus porta
-            vel. Vivamus neque ligula, maximus id erat a, iaculis sollicitudin
-            turpis. Aliquam erat ipsum, feugiat eu arcu sit amet, bibendum
-            sodales enim. Proin enim orci, malesuada ac vehicula a, pellentesque
-            a est. Morbi et pulvinar neque, ac porttitor enim. Praesent ut
-            convallis libero. Duis ultrices mauris auctor blandit malesuada. Sed
-            ullamcorper quam sem. In tempus sem vitae eros facilisis, a
-            hendrerit tellus commodo. Vestibulum a tincidunt magna. Fusce tempus
-            accumsan tortor, at tempus quam placerat ultrices. Proin at nulla
-            porttitor, consectetur enim quis, gravida velit. Sed lacinia arcu
-            quis risus varius, ut pretium est commodo. Sed eleifend consectetur
-            lectus, sit amet porta odio commodo ac. Vestibulum nisl lorem,
-            aliquet non dolor eu, tempor dictum arcu. Nam vestibulum, orci sit
-            amet cursus mattis, nibh purus lobortis orci, vel gravida enim lacus
-            eget enim. Duis commodo interdum semper. Vestibulum posuere rutrum
-            porttitor. Etiam cursus, nibh at mollis elementum, dolor quam
-            condimentum neque, ac ullamcorper purus enim imperdiet ligula. Donec
-            consectetur tempus elit at eleifend. Nam cursus accumsan imperdiet.
-            Donec quis libero nunc. Aliquam erat volutpat. Curabitur venenatis
-            ultricies orci id dapibus. Morbi et pulvinar neque, ac porttitor
-            enim. Praesent ut convallis libero. Duis ultrices mauris auctor
-            blandit malesuada. Sed ullamcorper quam sem. In tempus sem vitae
-            eros facilisis, a hendrerit tellus commodo. Vestibulum a tincidunt
-            magna. Fusce tempus accumsan tortor, at tempus quam placerat
-            ultrices. Proin at nulla porttitor, consectetur enim quis, gravida
-            velit. Sed lacinia arcu quis risus varius, ut pretium est commodo.
-            Sed eleifend consectetur lectus, sit amet porta odio commodo ac.
-            Vestibulum nisl lorem, aliquet non dolor eu, tempor dictum arcu. Nam
-            vestibulum, orci sit amet cursus mattis, nibh purus lobortis orci,
-            vel gravida enim lacus eget enim. Duis commodo interdum semper.
-            Vestibulum posuere rutrum porttitor. Etiam cursus, nibh at mollis
-            elementum, dolor quam condimentum neque, ac ullamcorper purus enim
-            imperdiet ligula. Donec consectetur tempus elit at eleifend. Nam
-            cursus accumsan imperdiet. Donec quis libero nunc. Aliquam erat
-            volutpat. Curabitur venenatis ultricies orci id dapibus.
-          </Text>
+              onPress={this.contactVendeur(article)}
+              style={{
+                backgroundColor: '#E03378',
+                paddingVertical: 10,
+                paddingHorizontal: 20,
+                borderRadius: 30,
+                alignItems: 'center',
+              }}>
+              <Text style={{color: '#FFF', fontSize: 15, fontWeight: 'bold'}}>
+                Contacter vendeur
+              </Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
+
+        <Modal
+          visible={this.state.modaleLibrarie}
+          transparent={true}
+          onRequestClose={() =>
+            this.setState({modaleLibrarie: false, librarie: []})
+          }>
+          <ImageViewer imageUrls={this.state.librarie} />
+        </Modal>
+
+        <Modal visible={true} transparent={true}>
+          <View
+            style={{
+              backgroundColor: '#FFF',
+              borderTopWidth: 1,
+              borderTopColor: '#ddd',
+              position: 'absolute',
+              bottom: 0,
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+            }}>
+            <Text>Sélectionnez un message ou écrivez le vôtre.</Text>
+            <View style={{alignItems: 'center', marginTop: 10}}>
+              <TouchableOpacity style={styles.btnChoix}>
+                <Text style={{color: '#0073AA'}}>
+                  Cet article est-il toujours disponible ?
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{alignItems: 'center', marginTop: 10}}>
+              <TouchableOpacity style={styles.btnChoix}>
+                <Text style={{color: '#0073AA'}}>Cet article m'intéresse.</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{alignItems: 'center', marginTop: 10}}>
+              <TouchableOpacity style={styles.btnChoix}>
+                <Text style={{color: '#0073AA'}}>
+                  Dans quel état est cet article
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -285,11 +306,18 @@ const styles = StyleSheet.create({
   scrollContainer: {
     backgroundColor: '#FFF',
     padding: 10,
-    paddingTop: HEADER_EXPANDED_HEIGHT + 50,
+    paddingTop: HEADER_EXPANDED_HEIGHT + 15,
   },
   imgBackground: {
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
+  },
+  btnChoix: {
+    borderWidth: 1,
+    borderColor: '#0073AA',
+    borderRadius: 30,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
   },
 });

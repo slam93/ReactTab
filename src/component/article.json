@@ -4,53 +4,83 @@
     "image": null,
     "prix": 10,
     "name": "Article 1",
-    "decription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
     "categorie": "cat-exemple",
-    "like": [5]
+    "like": [5],
+    "librarie": [
+      "https://image.freepik.com/photos-gratuite/homme-fies-noeud-papillon-noir-chemise-blanche_8353-52.jpg",
+      "https://image.freepik.com/photos-gratuite/chemise-coloree-suspendue-rail-dans-magasin_23-2148175733.jpg",
+      "https://image.freepik.com/photos-gratuite/tringle-vetements-t-shirts_23-2147669592.jpg",
+    ]
   },
   {
     "id":2,
     "image": null,
     "prix": 10,
     "name": "Article 1",
-    "decription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
     "categorie": "cat-exemple",
-    "like": [1,58]
+    "like": [1,58],
+    "librarie": [
+      "https://image.freepik.com/photos-gratuite/homme-fies-noeud-papillon-noir-chemise-blanche_8353-52.jpg",
+      "https://image.freepik.com/photos-gratuite/chemise-coloree-suspendue-rail-dans-magasin_23-2148175733.jpg",
+      "https://image.freepik.com/photos-gratuite/tringle-vetements-t-shirts_23-2147669592.jpg",
+    ]
   },
   {
     "id":3,
     "image": null,
     "prix": 10,
     "name": "Article 1",
-    "decription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
     "categorie": "cat-exemple",
-    "like": [1]
+    "like": [1],
+    "librarie": [
+      "https://image.freepik.com/photos-gratuite/homme-fies-noeud-papillon-noir-chemise-blanche_8353-52.jpg",
+      "https://image.freepik.com/photos-gratuite/chemise-coloree-suspendue-rail-dans-magasin_23-2148175733.jpg",
+      "https://image.freepik.com/photos-gratuite/tringle-vetements-t-shirts_23-2147669592.jpg",
+    ]
   },
   {
     "id":4,
     "image": null,
     "prix": 10,
     "name": "Article 1",
-    "decription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
     "categorie": "cat-exemple",
-    "like": []
+    "like": [],
+    "librarie": [
+      "https://image.freepik.com/photos-gratuite/homme-fies-noeud-papillon-noir-chemise-blanche_8353-52.jpg",
+      "https://image.freepik.com/photos-gratuite/chemise-coloree-suspendue-rail-dans-magasin_23-2148175733.jpg",
+      "https://image.freepik.com/photos-gratuite/tringle-vetements-t-shirts_23-2147669592.jpg",
+    ]
   },
   {
     "id":5,
     "image": null,
     "prix": 10,
     "name": "Article 1",
-    "decription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
     "categorie": "cat-exemple",
-    "like": []
+    "like": [],
+    "librarie": [
+      "https://image.freepik.com/photos-gratuite/homme-fies-noeud-papillon-noir-chemise-blanche_8353-52.jpg",
+      "https://image.freepik.com/photos-gratuite/chemise-coloree-suspendue-rail-dans-magasin_23-2148175733.jpg",
+      "https://image.freepik.com/photos-gratuite/tringle-vetements-t-shirts_23-2147669592.jpg"
+    ]
   },
   {
     "id":6,
     "image": null,
     "prix": 10,
     "name": "Article 1",
-    "decription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
     "categorie": "cat-exemple",
-    "like": []
+    "like": [],
+    "librarie": [
+      "https://image.freepik.com/photos-gratuite/homme-fies-noeud-papillon-noir-chemise-blanche_8353-52.jpg",
+      "https://image.freepik.com/photos-gratuite/chemise-coloree-suspendue-rail-dans-magasin_23-2148175733.jpg",
+      "https://image.freepik.com/photos-gratuite/tringle-vetements-t-shirts_23-2147669592.jpg",
+    ]
   }
 ]
