@@ -8,7 +8,7 @@ import {
   Dimensions,
   ScrollView,
   Animated,
-  Modal,
+  TextInput,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Text, Header, Title} from 'native-base';
@@ -19,6 +19,7 @@ import {connect} from 'react-redux';
 import LikeComponent from '../../component/likeComponent';
 import {updateLike} from '../../redux/actions';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import Modal from 'react-native-modal';
 
 class Details extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class Details extends Component {
       article: this.props.route.params.article,
       modaleLibrarie: false,
       librarie: [],
+      modalMessage: false,
     };
     this.pressLike = this.pressLike.bind(this);
     this.back = this.back.bind(this);
@@ -72,7 +74,11 @@ class Details extends Component {
     });
   }
 
-  contactVendeur() {}
+  contactVendeur() {
+    this.setState({
+      modalMessage: true,
+    });
+  }
 
   render() {
     let articleIndex = this.props.dataArticle.findIndex(
@@ -225,7 +231,7 @@ class Details extends Component {
 
           <View style={{paddingHorizontal: 30, paddingVertical: 30}}>
             <TouchableOpacity
-              onPress={this.contactVendeur(article)}
+              onPress={() => this.contactVendeur(article)}
               style={{
                 backgroundColor: '#E03378',
                 paddingVertical: 10,
@@ -240,45 +246,86 @@ class Details extends Component {
           </View>
         </ScrollView>
 
-        <Modal
-          visible={this.state.modaleLibrarie}
+        <Modal style={{margin:0}}
+          isVisible={this.state.modaleLibrarie}
           transparent={true}
-          onRequestClose={() =>
-            this.setState({modaleLibrarie: false, librarie: []})
+          onBackButtonPress={() =>
+            this.setState({modaleLibrarie: false})
           }>
           <ImageViewer imageUrls={this.state.librarie} />
         </Modal>
 
-        <Modal visible={true} transparent={true}>
+        <Modal
+          style={{justifyContent: 'flex-end', margin: 0}}
+          isVisible={this.state.modalMessage}
+          transparent={true}
+          onBackButtonPress={() => this.setState({modalMessage: false})}>
           <View
             style={{
               backgroundColor: '#FFF',
-              borderTopWidth: 1,
-              borderTopColor: '#ddd',
-              position: 'absolute',
-              bottom: 0,
-              paddingHorizontal: 20,
-              paddingVertical: 10,
             }}>
-            <Text>Sélectionnez un message ou écrivez le vôtre.</Text>
-            <View style={{alignItems: 'center', marginTop: 10}}>
-              <TouchableOpacity style={styles.btnChoix}>
-                <Text style={{color: '#0073AA'}}>
-                  Cet article est-il toujours disponible ?
-                </Text>
-              </TouchableOpacity>
+            <View
+              style={{
+                paddingHorizontal: 20,
+                paddingBottom: 20,
+                paddingTop: 10,
+              }}>
+              <Text>Sélectionnez un message ou écrivez le vôtre.</Text>
+              <View style={{alignItems: 'center', marginTop: 15}}>
+                <TouchableOpacity style={styles.btnChoix}>
+                  <Text style={{color: '#0366d6'}}>
+                    Cet article est-il toujours disponible ?
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{alignItems: 'center', marginTop: 10}}>
+                <TouchableOpacity style={styles.btnChoix}>
+                  <Text style={{color: '#0366d6'}}>
+                    Cet article m'intéresse.
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{alignItems: 'center', marginTop: 10}}>
+                <TouchableOpacity style={styles.btnChoix}>
+                  <Text style={{color: '#0366d6'}}>
+                    Dans quel état est cet article
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={{alignItems: 'center', marginTop: 10}}>
-              <TouchableOpacity style={styles.btnChoix}>
-                <Text style={{color: '#0073AA'}}>Cet article m'intéresse.</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{alignItems: 'center', marginTop: 10}}>
-              <TouchableOpacity style={styles.btnChoix}>
-                <Text style={{color: '#0073AA'}}>
-                  Dans quel état est cet article
-                </Text>
-              </TouchableOpacity>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                borderTopColor: '#ddd',
+                borderTopWidth: 1,
+                paddingVertical: 10,
+                alignItems: 'center',
+              }}>
+              <View style={{width: '75%', paddingHorizontal: 10}}>
+                <TextInput
+                  style={{
+                    borderColor: '#ddd',
+                    borderWidth: 1,
+                    borderRadius: 30,
+                    height: 45,
+                    paddingHorizontal: 10,
+                  }}
+                  placeholder="Ecrire votre message ..."
+                />
+              </View>
+              <View style={{width: '25%', paddingRight: 10}}>
+                <TouchableOpacity
+                  style={{
+                    borderRadius: 10,
+                    backgroundColor: '#0366d6',
+                    height: 40,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={{color: '#FFF'}}>Envoyer</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </Modal>
@@ -315,7 +362,7 @@ const styles = StyleSheet.create({
   },
   btnChoix: {
     borderWidth: 1,
-    borderColor: '#0073AA',
+    borderColor: '#0366d6',
     borderRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 5,
