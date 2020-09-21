@@ -8,6 +8,7 @@ import {
   Dimensions,
   TouchableOpacity,
   TouchableHighlight,
+  FlatList,
 } from 'react-native';
 import {Container, Content} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -26,6 +27,8 @@ class Home extends Component {
     this.state = {
       idUser: 5,
       data: ARTICLE,
+      stepArticle: 6,
+      stepNews: 4,
     };
     this.pressLike = this.pressLike.bind(this);
     this.pressDetail = this.pressDetail.bind(this);
@@ -50,6 +53,201 @@ class Home extends Component {
 
   pressDetail(article) {
     this.props.navigation.navigate('Details', {article: article});
+  }
+
+  renderListing(article) {
+    return (
+      <TouchableOpacity
+        key={article.id}
+        onPress={() => this.pressDetail(article)}
+        style={{width: '50%', paddingHorizontal: 4, marginBottom: 20}}>
+        <View
+          animation="fadeInRight"
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingVertical: 10,
+            paddingHorizontal: 5,
+          }}>
+          <Image
+            style={{
+              width: 25,
+              height: 25,
+              resizeMode: 'contain',
+              borderRadius: 50,
+              marginRight: 10,
+            }}
+            source={require('../../assets/images/user_default.jpg')}
+          />
+          <Text
+            style={{
+              color: '#333',
+              fontSize: 12,
+              fontFamily: 'Montserrat-Regular',
+            }}>
+            Rakoto
+          </Text>
+        </View>
+
+        <View>
+          <Image
+            style={{
+              width: '100%',
+              height: windowWidth * 0.5,
+              resizeMode: 'cover',
+            }}
+            source={require('../../assets/images/shoes.jpg')}
+          />
+        </View>
+        <View style={{paddingVertical: 5, paddingLeft: 5}}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{width: '60%'}}>
+              <Text
+                style={{
+                  color: '#333',
+                  fontSize: 13,
+                  fontWeight: 'bold',
+                  fontFamily: 'Montserrat-Regular',
+                }}>
+                {article.prix}€
+              </Text>
+            </View>
+            <View
+              style={{
+                width: '40%',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                paddingRight: 10,
+              }}>
+              <TouchableOpacity onPress={() => this.pressLike(article.id)}>
+                <LikeComponent article={article} size={17} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.pressLike(article.id)}>
+                <Text style={{color: '#333', fontSize: 13, marginLeft: 5}}>
+                  {article.like.length}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View>
+            <Text style={{color: '#333', fontSize: 12}}>{article.name}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
+  renderListingHorizontal(nbrStepHinit) {
+    let news = this.props.dataNews;
+    let dataNews = [];
+    let nbrStepH = this.state.stepNews;
+    for (let i = nbrStepHinit; i < nbrStepH + nbrStepHinit; i++) {
+      dataNews.push(news[i]);
+    }
+    return (
+      <View key={nbrStepHinit * 999} style={{width: '100%'}}>
+        <FlatList
+          data={dataNews}
+          horizontal
+          contentContainerStyle={{paddingHorizontal: 5}}
+          showsHorizontalScrollIndicator={false}
+          renderItem={this.horizontalItem}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </View>
+    );
+  }
+
+  horizontalItem({item}) {
+    if (item !== undefined) {
+      return (
+        <TouchableOpacity
+          style={{
+            width: 200,
+            paddingHorizontal: 4,
+            backgroundColor: '#E03378',
+          }}>
+          <View
+            animation="fadeInRight"
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingVertical: 10,
+              paddingHorizontal: 5,
+            }}>
+            <Image
+              style={{
+                width: 25,
+                height: 25,
+                resizeMode: 'cover',
+                borderRadius: 50,
+                marginRight: 10,
+              }}
+              source={require('../../assets/images/user_default.jpg')}
+            />
+            <Text
+              style={{
+                color: '#333',
+                fontSize: 10,
+                fontFamily: 'Montserrat-Regular',
+              }}>
+              Rakoto
+            </Text>
+          </View>
+
+          <View style={{backgroundColor: 'transparent'}}>
+            <Image
+              style={{
+                width: '100%',
+                height: 175,
+                resizeMode: 'contain',
+              }}
+              source={require('../../assets/images/shoes.jpg')}
+            />
+          </View>
+          <View style={{paddingVertical: 5, paddingLeft: 5}}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{width: '100%'}}>
+                <Text
+                  style={{
+                    color: '#333',
+                    fontSize: 12,
+                    fontWeight: 'bold',
+                    fontFamily: 'Montserrat-Regular',
+                  }}>
+                  {item.prix}€
+                </Text>
+              </View>
+            </View>
+            <View>
+              <Text style={{color: '#333', fontSize: 12}}>{item.name}</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      );
+    } else {
+      return <View />;
+    }
+  }
+
+  listing() {
+    let view = [];
+    let article = this.props.dataArticle;
+    let nbrStep = this.state.stepArticle;
+    let nbrStepHinit = 0;
+    for (let i = 0; i < article.length; i++) {
+      if (i % nbrStep === 0) {
+        if (i !== 0) {
+          view.push(this.renderListingHorizontal(nbrStepHinit));
+          nbrStepHinit = nbrStepHinit + this.state.stepNews;
+        }
+        view.push(this.renderListing(article[i]));
+      } else {
+        view.push(this.renderListing(article[i]));
+      }
+    }
+    return view;
   }
 
   render() {
@@ -92,83 +290,7 @@ class Home extends Component {
               flexWrap: 'wrap',
               paddingHorizontal: 4,
             }}>
-            {this.props.dataArticle.map((article, index) => (
-              <TouchableOpacity
-                onPress={() => this.pressDetail(article)}
-                key={index}
-                style={{width: '50%', paddingHorizontal: 4, marginBottom: 20}}>
-                <View
-                  animation="fadeInRight"
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    paddingVertical: 10,
-                    paddingHorizontal: 5,
-                  }}>
-                  <Image
-                    style={{
-                      width: 25,
-                      height: 25,
-                      resizeMode: 'contain',
-                      borderRadius: 50,
-                      marginRight: 10,
-                    }}
-                    source={require('../../assets/images/user_default.jpg')}
-                  />
-                  <Text style={{color: '#333', fontSize: 12}}>Rakoto</Text>
-                </View>
-
-                <View>
-                  <Image
-                    style={{
-                      width: '100%',
-                      height: windowWidth * 0.5,
-                      resizeMode: 'cover',
-                    }}
-                    source={require('../../assets/images/shoes.jpg')}
-                  />
-                </View>
-                <View style={{paddingVertical: 5, paddingLeft: 5}}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <View style={{width: '60%'}}>
-                      <Text
-                        style={{
-                          color: '#333',
-                          fontSize: 13,
-                          fontWeight: 'bold',
-                        }}>
-                        {article.prix}€
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        width: '40%',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                        paddingRight: 10,
-                      }}>
-                      <TouchableOpacity
-                        onPress={() => this.pressLike(article.id)}>
-                        <LikeComponent article={article} size={17} />
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        onPress={() => this.pressLike(article.id)}>
-                        <Text
-                          style={{color: '#333', fontSize: 13, marginLeft: 5}}>
-                          {article.like.length}
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                  <View>
-                    <Text style={{color: '#333', fontSize: 12}}>
-                      {article.name}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            ))}
+            {this.listing()}
           </View>
         </Content>
       </Container>
@@ -177,8 +299,8 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const {session, dataArticle} = state.stateStore;
-  return {session, dataArticle};
+  const {session, dataArticle, dataNews} = state.stateStore;
+  return {session, dataArticle, dataNews};
 };
 
 export default connect(mapStateToProps, {updateLike})(Home);

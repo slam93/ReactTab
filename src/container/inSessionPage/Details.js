@@ -246,12 +246,11 @@ class Details extends Component {
           </View>
         </ScrollView>
 
-        <Modal style={{margin:0}}
+        <Modal
+          style={{margin: 0}}
           isVisible={this.state.modaleLibrarie}
           transparent={true}
-          onBackButtonPress={() =>
-            this.setState({modaleLibrarie: false})
-          }>
+          onBackButtonPress={() => this.setState({modaleLibrarie: false})}>
           <ImageViewer imageUrls={this.state.librarie} />
         </Modal>
 
